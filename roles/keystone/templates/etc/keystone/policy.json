@@ -4,20 +4,18 @@
     "service_or_admin": "rule:admin_required or rule:service_role",
     "owner" : "user_id:%(user_id)s",
     "admin_or_owner": "rule:admin_required or rule:owner",
-    "token_subject": "user_id:%(target.token.user_id)s",
-    "admin_or_token_subject": "rule:admin_required or rule:token_subject",
     "support_role" : "role:support",
     "default": "rule:admin_required",
 
     "projectadmin_role": "role:project_admin",
     "cloud_admin_role": "role:cloud_admin",
-    "admin_or_cloudadmin_or_projectadmin": "rule:admin_required or rule:projectadmin_role or rule:cloud_admin_role",
     "admin_or_cloudadmin": "rule:admin_required or rule:cloud_admin_role",
     "admin_or_projectadmin": "rule:admin_required or rule:projectadmin_role",
     "admin_or_owner_or_projectadmin": "rule:admin_or_owner or rule:projectadmin_role",
     "admin_or_owner_or_cloudadmin": "rule:admin_or_owner or rule:cloud_admin_role",
     "admin_or_owner_or_cloudadmin_or_projectadmin": "rule:admin_or_owner or rule:cloud_admin_role or rule:projectadmin_role",
-    "create_revoke_grant_rule": "rule:admin_required or (rule:cloud_admin_role and not 'admin':%(target.role.name)s) or (rule:projectadmin_role and project_id:%(project_id)s and not 'cloud_admin':%(target.role.name)s and not 'admin':%(target.role.name)s)",
+    "admin_or_cloudadmin_or_projectadmin": "rule:admin_required or rule:cloud_admin_role or rule:projectadmin_role",
+    "create_revoke_grant_rule": "rule:admin_required or (rule:cloudadmin_role and not 'admin':%(target.role.name)s) or (rule:projectadmin_role and project_id:%(project_id)s and not 'cloud_admin':%(target.role.name)s and not 'admin':%(target.role.name)s)",
     "get_pseudo_admin_endpoints": "rule:cloudadmin_role or rule:projectadmin_role",
 
     "identity:get_region": "",
@@ -88,8 +86,8 @@
 
     "identity:check_grant": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(project_id)s)",
     "identity:list_grants": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(project_id)s)",
-    "identity:create_grant": "rule:create_revoke_grant_rule",
-    "identity:revoke_grant": "rule:create_revoke_grant_rule",
+    "identity:create_grant": "rule:admin_required or (rule:cloud_admin_role and not 'admin':%(target.role.name)s) or (rule:projectadmin_role and project_id:%(project_id)s and not 'Cloud_Admin':%(target.role.name)s and not 'admin':%(target.role.name)s)",
+    "identity:revoke_grant": "rule:admin_required or (rule:cloud_admin_role and not 'admin':%(target.role.name)s) or (rule:projectadmin_role and project_id:%(project_id)s and not 'Cloud_Admin':%(target.role.name)s and not 'admin':%(target.role.name)s)",
 
     "identity:list_role_assignments": "rule:admin_or_cloudadmin or (rule:projectadmin_role and (project_id:%(scope.project.id)s or user_id:%(user.id)s))",
 
@@ -109,6 +107,7 @@
     "identity:get_trust": "rule:admin_or_owner",
     "identity:list_trusts": "",
     "identity:list_roles_for_trust": "",
+    "identity:check_role_for_trust": "",
     "identity:get_role_for_trust": "",
     "identity:delete_trust": "",
 
@@ -131,17 +130,6 @@
     "identity:list_endpoints_for_project": "rule:admin_required",
     "identity:remove_endpoint_from_project": "rule:admin_required",
 
-    "identity:create_endpoint_group": "rule:admin_required",
-    "identity:list_endpoint_groups": "rule:admin_required",
-    "identity:get_endpoint_group": "rule:admin_required",
-    "identity:update_endpoint_group": "rule:admin_required",
-    "identity:delete_endpoint_group": "rule:admin_required",
-    "identity:list_projects_associated_with_endpoint_group": "rule:admin_required",
-    "identity:list_endpoints_associated_with_endpoint_group": "rule:admin_required",
-    "identity:get_endpoint_group_in_project": "rule:admin_required",
-    "identity:add_endpoint_group_to_project": "rule:admin_required",
-    "identity:remove_endpoint_group_from_project": "rule:admin_required",
-
     "identity:create_identity_provider": "rule:admin_required",
     "identity:list_identity_providers": "rule:admin_required",
     "identity:get_identity_providers": "rule:admin_required",
@@ -160,36 +148,9 @@
     "identity:delete_mapping": "rule:admin_required",
     "identity:update_mapping": "rule:admin_required",
 
-    "identity:create_service_provider": "rule:admin_required",
-    "identity:list_service_providers": "rule:admin_required",
-    "identity:get_service_provider": "rule:admin_required",
-    "identity:update_service_provider": "rule:admin_required",
-    "identity:delete_service_provider": "rule:admin_required",
-
-    "identity:get_auth_catalog": "",
-    "identity:get_auth_projects": "",
-    "identity:get_auth_domains": "",
-
     "identity:list_projects_for_groups": "",
     "identity:list_domains_for_groups": "",
 
-    "identity:list_revoke_events": "",
-
-    "identity:create_policy_association_for_endpoint": "rule:admin_required",
-    "identity:check_policy_association_for_endpoint": "rule:admin_required",
-    "identity:delete_policy_association_for_endpoint": "rule:admin_required",
-    "identity:create_policy_association_for_service": "rule:admin_required",
-    "identity:check_policy_association_for_service": "rule:admin_required",
-    "identity:delete_policy_association_for_service": "rule:admin_required",
-    "identity:create_policy_association_for_region_and_service": "rule:admin_required",
-    "identity:check_policy_association_for_region_and_service": "rule:admin_required",
-    "identity:delete_policy_association_for_region_and_service": "rule:admin_required",
-    "identity:get_policy_for_endpoint": "rule:admin_required",
-    "identity:list_endpoints_for_policy": "rule:admin_required",
-
-    "identity:create_domain_config": "rule:admin_required",
-    "identity:get_domain_config": "rule:admin_required",
-    "identity:update_domain_config": "rule:admin_required",
-    "identity:delete_domain_config": "rule:admin_required"
+    "identity:list_revoke_events": ""
 }
 

@@ -5,9 +5,9 @@
     "context_is_advsvc":  "role:advsvc",
     "admin_or_network_owner": "rule:cloud_admin_privilege or tenant_id:%(network:tenant_id)s",
     "admin_only": "role:admin",
-    "project_admin_privilege": "rule:cloud_admin_privilege or role:project_admin",
-    "admin_or_admin_owner": "rule:cloud_admin_privilege or (tenant_id:%(tenant_id)s and role:project_admin)",
-    "admin_or_network_admin_owner": "rule:cloud_admin_privilege or (tenant_id:%(network:tenant_id)s and role:project_admin)",
+    "project_admin_privilege": "rule:cloud_admin_privilege or role:Project_Admin",
+    "admin_or_admin_owner": "rule:cloud_admin_privilege or (tenant_id:%(tenant_id)s and role:Project_Admin)",
+    "admin_or_network_admin_owner": "rule:cloud_admin_privilege or (tenant_id:%(network:tenant_id)s and role:Project_Admin)",
     "regular_user": "",
     "shared": "field:networks:shared=True",
     "shared_firewalls": "field:firewalls:shared=True",
@@ -94,6 +94,7 @@
 
     "create_router:external_gateway_info:external_fixed_ips": "rule:admin_only",
     "update_router:external_gateway_info:external_fixed_ips": "rule:admin_only",
+
     "create_firewall": "rule:admin_only",
     "get_firewall": "rule:admin_only",
     "create_firewall:shared": "rule:admin_only",
