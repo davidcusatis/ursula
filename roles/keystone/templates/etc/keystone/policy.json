@@ -6,19 +6,18 @@
     "admin_or_owner": "rule:admin_required or rule:owner",
     "token_subject": "user_id:%(target.token.user_id)s",
     "admin_or_token_subject": "rule:admin_required or rule:token_subject",
-    "service_admin_or_token_subject": "rule:service_or_admin or rule:token_subject",
-
+    "support_role" : "role:support",
     "default": "rule:admin_required",
-    "projectadmin_role": "role:project_admin",
-    "cloudadmin_role": "role:cloud_admin",
 
-    "admin_or_cloudadmin": "rule:admin_required or rule:cloudadmin_role",
-    "admin_or_cloudadmin_or_projectadmin": "rule:admin_required or rule:projectadmin_role or rule:cloudadmin_role",
-    "admin_or_owner_or_cloudadmin": "rule:admin_or_owner or rule:cloudadmin_role",
-    "admin_or_owner_or_cloudadmin_or_projectadmin": "rule:admin_or_owner or rule:cloudadmin_role or rule:projectadmin_role",
-    "admin_or_owner_or_projectadmin": "rule:admin_or_owner or rule:projectadmin_role",
+    "projectadmin_role": "role:project_admin",
+    "cloud_admin_role": "role:cloud_admin",
+    "admin_or_cloudadmin_or_projectadmin": "rule:admin_required or rule:projectadmin_role or rule:cloud_admin_role",
+    "admin_or_cloudadmin": "rule:admin_required or rule:cloud_admin_role",
     "admin_or_projectadmin": "rule:admin_required or rule:projectadmin_role",
-    "create_revoke_grant_rule": "rule:admin_required or (rule:cloudadmin_role and not 'admin':%(target.role.name)s) or (rule:projectadmin_role and project_id:%(project_id)s and not 'cloud_admin':%(target.role.name)s and not 'admin':%(target.role.name)s)",
+    "admin_or_owner_or_projectadmin": "rule:admin_or_owner or rule:projectadmin_role",
+    "admin_or_owner_or_cloudadmin": "rule:admin_or_owner or rule:cloud_admin_role",
+    "admin_or_owner_or_cloudadmin_or_projectadmin": "rule:admin_or_owner or rule:cloud_admin_role or rule:projectadmin_role",
+    "create_revoke_grant_rule": "rule:admin_required or (rule:cloud_admin_role and not 'admin':%(target.role.name)s) or (rule:projectadmin_role and project_id:%(project_id)s and not 'cloud_admin':%(target.role.name)s and not 'admin':%(target.role.name)s)",
     "get_pseudo_admin_endpoints": "rule:cloudadmin_role or rule:projectadmin_role",
 
     "identity:get_region": "",
@@ -51,6 +50,7 @@
     "identity:create_project": "rule:admin_or_cloudadmin",
     "identity:update_project": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(project_id)s)",
     "identity:delete_project": "rule:admin_or_cloudadmin",
+
     "identity:get_user": "rule:admin_or_owner_or_cloudadmin or (rule:projectadmin_role and project_id:%(target.user.default_project_id)s)",
     "identity:list_users": "rule:admin_or_cloudadmin_or_projectadmin or rule:support_role",
     "identity:create_user": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(user.default_project_id)s)",
@@ -58,13 +58,13 @@
     "identity:delete_user": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(target.user.default_project_id)s)",
     "identity:change_password": "rule:admin_or_owner_or_cloudadmin or (rule:projectadmin_role and project_id:%(target.user.default_project_id)s) or rule:support_role",
 
-    "identity:get_group": "rule:admin_required",
-    "identity:list_groups": "rule:admin_required",
+    "identity:get_group": "",
+    "identity:list_groups": "",
     "identity:list_groups_for_user": "rule:admin_or_owner_or_cloudadmin_or_projectadmin",
     "identity:create_group": "rule:admin_or_cloudadmin",
     "identity:update_group": "rule:admin_or_cloudadmin",
     "identity:delete_group": "rule:admin_or_cloudadmin",
-    "identity:list_users_in_group": "rule:admin_required",
+    "identity:list_users_in_group": "",
     "identity:remove_user_from_group": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(target.user.default_project_id)s)",
     "identity:check_user_in_group": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(target.user.default_project_id)s)",
     "identity:add_user_to_group": "rule:admin_or_cloudadmin or (rule:projectadmin_role and project_id:%(target.user.default_project_id)s)",
@@ -75,7 +75,7 @@
     "identity:update_credential": "rule:admin_required",
     "identity:delete_credential": "rule:admin_required",
 
-    "identity:ec2_get_credential": "rule:admin_required or (rule:owner and user_id:%(target.credential.user_id)s)",
+    "identity:ec2_get_credential": "rule:admin_or_owner",
     "identity:ec2_list_credentials": "rule:admin_or_owner",
     "identity:ec2_create_credential": "rule:admin_or_owner",
     "identity:ec2_delete_credential": "rule:admin_required or (rule:owner and user_id:%(target.credential.user_id)s)",
@@ -109,7 +109,6 @@
     "identity:get_trust": "rule:admin_or_owner",
     "identity:list_trusts": "",
     "identity:list_roles_for_trust": "",
-    "identity:check_role_for_trust": "",
     "identity:get_role_for_trust": "",
     "identity:delete_trust": "",
 
@@ -140,7 +139,6 @@
     "identity:list_projects_associated_with_endpoint_group": "rule:admin_required",
     "identity:list_endpoints_associated_with_endpoint_group": "rule:admin_required",
     "identity:get_endpoint_group_in_project": "rule:admin_required",
-    "identity:list_endpoint_groups_for_project": "rule:admin_required",
     "identity:add_endpoint_group_to_project": "rule:admin_required",
     "identity:remove_endpoint_group_from_project": "rule:admin_required",
 
@@ -194,3 +192,4 @@
     "identity:update_domain_config": "rule:admin_required",
     "identity:delete_domain_config": "rule:admin_required"
 }
+
