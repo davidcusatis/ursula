@@ -47,6 +47,7 @@ OPENSTACK_API_VERSIONS = {
 
 # Default OpenStack Dashboard configuration.
 HORIZON_CONFIG = {
+    'customization_module': 'openstack_dashboard.horizon_customization',
     'dashboards': ('project', 'admin', 'settings',),
     'default_dashboard': 'project',
     'user_home': 'openstack_dashboard.views.get_user_home',
