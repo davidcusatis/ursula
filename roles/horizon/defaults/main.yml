@@ -16,5 +16,3 @@ horizon:
       - apache2
       - libapache2-mod-wsgi
       - libmysqlclient-dev
-
-

@@ -116,3 +116,9 @@
 
 - include: monitoring.yml tags=monitoring,common
   when: monitoring.enabled|default('True')|bool
+
+- name: add horizon customization modules
+  pip: name="git+https://github.com/davidcusatis/bluebox-horizon-customization#egg=bluebox-horizon-customization"
+       virtualenv="{{ openstack_source.virtualenv_base }}/horizon/"
+  notify:
+    - restart apache
