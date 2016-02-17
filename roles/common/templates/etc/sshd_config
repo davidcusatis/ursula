@@ -32,6 +32,10 @@ PermitRootLogin without-password
 {% endif %}
 StrictModes yes
 
+# Limit client timeout to 1800 sec
+ClientAliveTime 1800
+ClientAliveCountMax 0
+
 RSAAuthentication yes
 PubkeyAuthentication yes
 #AuthorizedKeysFile     %h/.ssh/authorized_keys
