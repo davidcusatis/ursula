@@ -64,6 +64,8 @@
 - include: ufw.yml
   tags: ufw
 
+- include: adduser.yml
+
 - include: ntp.yml
   tags: ntp
 
